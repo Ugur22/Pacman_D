@@ -5,6 +5,7 @@
  */
 package Pacman.models;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.io.File;
 import java.io.IOException;
@@ -16,21 +17,16 @@ import javax.imageio.ImageIO;
  *
  * @author ugur
  */
-public class SmartGhost extends Spookje{
+public class SmartGhost extends Spookje {
 
-    public SmartGhost(Vakje vakje, int xPos, int yPos, int height, int width) {
-        super(vakje, xPos, yPos, height, width);
-    }
-    
-    
-     @Override
-    public void draw(Graphics g) {     
+    @Override
+    public void draw(Graphics g) {
         try {
-            g.drawImage(ImageIO.read(new File("pacman_geel.png")), getxPos(), getyPos(), getWidth(), getHeight(), null);
+            g.drawImage(ImageIO.read(new File("smart.png")), vakje.getxPos(), vakje.getyPos(), vakje.getWidth(), vakje.getHeight(), null);
         } catch (IOException ex) {
             Logger.getLogger(Spookje.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
-    
+
 }

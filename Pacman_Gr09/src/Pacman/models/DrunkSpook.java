@@ -5,6 +5,7 @@
  */
 package Pacman.models;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.io.File;
 import java.io.IOException;
@@ -19,14 +20,10 @@ import javax.imageio.ImageIO;
  */
 public class DrunkSpook extends Spookje {
 
-    public DrunkSpook(Vakje vakje, int xPos, int yPos, int height, int width) {
-        super(vakje, xPos, yPos, height, width);
-    }
-
     @Override
     public void draw(Graphics g) {
         try {
-            g.drawImage(ImageIO.read(new File("spookje.png")), getxPos(), getyPos(), getWidth(), getHeight(), null);
+            g.drawImage(ImageIO.read(new File("drunk.png")), vakje.getxPos(), vakje.getyPos(), vakje.getWidth(), vakje.getHeight(), null);
         } catch (IOException ex) {
             Logger.getLogger(Spookje.class.getName()).log(Level.SEVERE, null, ex);
         }

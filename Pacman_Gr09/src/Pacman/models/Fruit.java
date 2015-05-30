@@ -12,18 +12,6 @@ import java.awt.Graphics;
  *
  * @author ugur
  */
-public abstract class Poppetje extends SpelElement {
-
-    int startpositie = 0;
-
-  
-
-    //draw method
-    @Override
-    public void draw(Graphics g) {
-
-    }
-
-    public abstract void Bewegen(Direction direction);
+public abstract class Fruit extends SpelElement {
 
 }

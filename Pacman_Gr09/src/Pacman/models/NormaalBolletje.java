@@ -5,10 +5,20 @@
  */
 package Pacman.models;
 
+import java.awt.Color;
+import java.awt.Graphics;
+
 /**
  *
  * @author ugur
  */
-public class NormaalBolletje {
-    
+public class NormaalBolletje extends Fruit {
+
+    @Override
+    public void draw(Graphics g) {
+        g.setColor(Color.ORANGE);
+        g.fillRoundRect(vakje.getxPos() + vakje.getHeight() / 4, vakje.getyPos() + vakje.getWidth() / 4, vakje.getHeight() / 2, vakje.getWidth() / 2,
+                vakje.getHeight() / 2, vakje.getWidth() / 2);
+    }
+
 }

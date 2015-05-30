@@ -17,16 +17,18 @@ import javax.imageio.ImageIO;
  *
  * @author ugur
  */
-public class Muur extends SpelElement {
 
-    public Muur(Vakje vakje, int xPos, int yPos, int height, int width) {
-        super(vakje, Color.BLUE, xPos, yPos, width, height);
+
+public class Muur extends SpelElement {
+    
+    public Muur(){
+        
     }
 
     @Override
     public void draw(Graphics g) {
-          try {
-            g.drawImage(ImageIO.read(new File("wall.png")), getxPos(), getyPos(), getWidth(), getHeight(), null);
+        try {
+            g.drawImage(ImageIO.read(new File("wall.png")), vakje.getxPos(), vakje.getyPos(), vakje.getWidth(), vakje.getHeight(), null);
         } catch (IOException ex) {
             Logger.getLogger(Spookje.class.getName()).log(Level.SEVERE, null, ex);
         }
