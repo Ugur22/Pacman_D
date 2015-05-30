@@ -38,18 +38,27 @@ public class Speelboard {
         vakken = new ArrayList<Vakje>();
 
         for (int i = 0; i < level.length; i++) {
-            if (level[i] == 1) {
-                vakken.add(new Vakje(new Muur()));
-            } else if (level[i] == 0) {
-                aantalBolletjes = aantalBolletjes + 1;
-                vakken.add(new Vakje(new NormaalBolletje()));
-            } else if (level[i] == 2) {
-                vakken.add(new Vakje(new SmartGhost()));
-            } else if (level[i] == 3) {
-                vakken.add(this.pacmanStartVakje);
-            } else if (level[i] == 4) {
-                vakken.add(new Vakje(new DrunkSpook()));
 
+            switch (level[i]) {
+                case 0:
+                    aantalBolletjes = aantalBolletjes + 1;
+                    vakken.add(new Vakje(new NormaalBolletje()));
+                    break;
+                case 1:
+                    vakken.add(new Vakje(new Muur()));
+                    break;
+                case 2:
+                    vakken.add(new Vakje(new SmartGhost()));
+                    break;
+                case 3:
+                    vakken.add(this.pacmanStartVakje);
+                    break;
+                case 4:
+                    vakken.add(new Vakje(new DrunkSpook()));
+                    break;
+                case 5:
+                    vakken.add(new Vakje(new SuperBolletje()));
+                    break;
             }
         }
         this.vakjesVerdelen();
