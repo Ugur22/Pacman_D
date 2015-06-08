@@ -32,7 +32,7 @@ public class DronkenSpook extends Spookje {
     Random rand = new Random();
 
     public void RandomMove() {
-        int random = rand.nextInt(4);
+        int random = rand.nextInt(5);
         Direction dir = Direction.EAST;
 
         switch (random) {

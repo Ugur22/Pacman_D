@@ -22,8 +22,8 @@ import java.util.Timer;
  */
 public class Speelboard {
 
-    Timer tim = new Timer();
-    TimerTask timtask = new TimerTask() {
+    public Timer tim = new Timer();
+    public TimerTask timtask = new TimerTask() {
 
         @Override
         public void run() {
@@ -58,7 +58,6 @@ public class Speelboard {
         this.setLevel(levelhandler.level_one);
         this.laden();
         this.gamepanel = gamepanel;
-        tim.schedule(timtask, 0, 190);
 
     }
 

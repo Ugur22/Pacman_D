@@ -5,6 +5,8 @@
  */
 package Pacman.gui;
 
+import java.awt.event.ItemEvent;
+
 /**
  *
  * @author ugur
@@ -16,7 +18,7 @@ public class GameFrame extends javax.swing.JFrame {
      */
     public GameFrame() {
         initComponents();
-        gamePanel1.start();
+
     }
 
     /**
@@ -30,8 +32,8 @@ public class GameFrame extends javax.swing.JFrame {
 
         BtnStart = new javax.swing.JButton();
         BtnRestart = new javax.swing.JButton();
-        Btnpauze = new javax.swing.JButton();
         gamePanel1 = new Pacman.gui.GamePanel();
+        jToggleButton1 = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -49,13 +51,6 @@ public class GameFrame extends javax.swing.JFrame {
             }
         });
 
-        Btnpauze.setText("Pauzeer");
-        Btnpauze.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnpauzeActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout gamePanel1Layout = new javax.swing.GroupLayout(gamePanel1);
         gamePanel1.setLayout(gamePanel1Layout);
         gamePanel1Layout.setHorizontalGroup(
@@ -64,8 +59,20 @@ public class GameFrame extends javax.swing.JFrame {
         );
         gamePanel1Layout.setVerticalGroup(
             gamePanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 591, Short.MAX_VALUE)
+            .addGap(0, 555, Short.MAX_VALUE)
         );
+
+        jToggleButton1.setText("Pauzeer");
+        jToggleButton1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jToggleButton1ItemStateChanged(evt);
+            }
+        });
+        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -78,8 +85,8 @@ public class GameFrame extends javax.swing.JFrame {
                         .addComponent(BtnStart)
                         .addGap(18, 18, 18)
                         .addComponent(BtnRestart)
-                        .addGap(28, 28, 28)
-                        .addComponent(Btnpauze))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jToggleButton1))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(34, 34, 34)
                         .addComponent(gamePanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -90,11 +97,11 @@ public class GameFrame extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(gamePanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(42, 42, 42)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BtnStart)
                     .addComponent(BtnRestart)
-                    .addComponent(Btnpauze))
+                    .addComponent(jToggleButton1))
                 .addContainerGap())
         );
 
@@ -103,15 +110,29 @@ public class GameFrame extends javax.swing.JFrame {
 
     private void BtnStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnStartActionPerformed
         // TODO add your handling code here:
+        gamePanel1.start();
     }//GEN-LAST:event_BtnStartActionPerformed
 
     private void BtnRestartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnRestartActionPerformed
         // TODO add your handling code here:
+        gamePanel1.reset();
     }//GEN-LAST:event_BtnRestartActionPerformed
 
-    private void BtnpauzeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnpauzeActionPerformed
+    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_BtnpauzeActionPerformed
+    }//GEN-LAST:event_jToggleButton1ActionPerformed
+
+    private void jToggleButton1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jToggleButton1ItemStateChanged
+        // TODO add your handling code here:
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            jToggleButton1.setText("Hervat");
+            gamePanel1.pause();
+        } else if (evt.getStateChange() == ItemEvent.DESELECTED) {
+            jToggleButton1.setText("Pauzeer");
+            gamePanel1.hervat();
+        }
+
+    }//GEN-LAST:event_jToggleButton1ItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -151,7 +172,7 @@ public class GameFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnRestart;
     private javax.swing.JButton BtnStart;
-    private javax.swing.JButton Btnpauze;
     private Pacman.gui.GamePanel gamePanel1;
+    private javax.swing.JToggleButton jToggleButton1;
     // End of variables declaration//GEN-END:variables
 }

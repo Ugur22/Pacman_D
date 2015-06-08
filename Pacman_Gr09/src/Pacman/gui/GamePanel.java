@@ -5,13 +5,11 @@
 package Pacman.gui;
 
 import Pacman.models.KeyHandler;
-import Pacman.models.Pacman;
 import java.util.ArrayList;
 import Pacman.models.Poppetje;
 import Pacman.models.Speelboard;
-import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics;
+import java.util.Timer;
 
 /**
  *
@@ -45,12 +43,41 @@ public class GamePanel extends javax.swing.JPanel {
     }
 
     public void start() {
-        init();
+
+        try {
+            speelboard.tim.scheduleAtFixedRate(speelboard.timtask, 0, 190);
+            init();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
     }
 
     public void reset() {
         init();
         initGame();
+        speelboard.tim.scheduleAtFixedRate(speelboard.timtask, 0, 190);
+    }
+
+    public void pause() {
+        try {
+            speelboard.tim.cancel();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+    }
+
+    public void hervat() {
+        try {
+
+            init();
+            speelboard.tim.purge();
+            speelboard.timtask.scheduledExecutionTime();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
     }
 
     @Override
