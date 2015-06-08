@@ -5,7 +5,6 @@
  */
 package Pacman.models;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.io.File;
 import java.io.IOException;
@@ -18,7 +17,7 @@ import javax.imageio.ImageIO;
  *
  * @author ugur
  */
-public class DrunkSpook extends Spookje {
+public class DronkenSpook extends Spookje {
 
     @Override
     public void draw(Graphics g) {
@@ -30,23 +29,35 @@ public class DrunkSpook extends Spookje {
 
     }
 
+    Random rand = new Random();
+
     public void RandomMove() {
-        Random rand = new Random();
-        int random = rand.nextInt(5);
+        int random = rand.nextInt(4);
+        Direction dir = Direction.EAST;
 
         switch (random) {
             case 1:
-                Bewegen(Direction.SOUTH);
+                dir = Direction.EAST;
                 break;
             case 2:
-                Bewegen(Direction.NORTH);
+                dir = Direction.NORTH;
                 break;
             case 3:
-                Bewegen(Direction.EAST);
+                dir = Direction.SOUTH;
                 break;
             case 4:
-                Bewegen(Direction.WEST);
+                dir = Direction.WEST;
                 break;
+
+        }
+
+        if (this.canMove(dir)) {
+            this.getVakje().removeSpelElement(this);
+            Vakje x = this.moveVakje(dir);
+            x.addSpelElement(this);
+            this.setVakje(x);
+        } else {
+            RandomMove();
         }
     }
 

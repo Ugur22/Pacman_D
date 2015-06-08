@@ -16,7 +16,8 @@ public class PacmanFrame extends javax.swing.JFrame {
      */
     public PacmanFrame() {
         initComponents();
-        pacmanPanel1.start();
+        gamePanel1.start();
+
     }
 
     /**
@@ -31,11 +32,17 @@ public class PacmanFrame extends javax.swing.JFrame {
         BtnStart = new javax.swing.JButton();
         BtnReset = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        pacmanPanel1 = new Pacman.gui.PacmanPanel(this);
+        gamePanel1 = new Pacman.gui.GamePanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         BtnStart.setText("Start");
+        BtnStart.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnStartActionPerformed(evt);
+            }
+        });
+        getContentPane().add(BtnStart, java.awt.BorderLayout.LINE_END);
 
         BtnReset.setText("reset");
         BtnReset.addActionListener(new java.awt.event.ActionListener() {
@@ -43,60 +50,38 @@ public class PacmanFrame extends javax.swing.JFrame {
                 BtnResetActionPerformed(evt);
             }
         });
+        getContentPane().add(BtnReset, java.awt.BorderLayout.PAGE_START);
 
         jLabel1.setText("jLabel1");
+        getContentPane().add(jLabel1, java.awt.BorderLayout.PAGE_END);
 
-        javax.swing.GroupLayout pacmanPanel1Layout = new javax.swing.GroupLayout(pacmanPanel1);
-        pacmanPanel1.setLayout(pacmanPanel1Layout);
-        pacmanPanel1Layout.setHorizontalGroup(
-            pacmanPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1075, Short.MAX_VALUE)
+        javax.swing.GroupLayout gamePanel1Layout = new javax.swing.GroupLayout(gamePanel1);
+        gamePanel1.setLayout(gamePanel1Layout);
+        gamePanel1Layout.setHorizontalGroup(
+            gamePanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 609, Short.MAX_VALUE)
         );
-        pacmanPanel1Layout.setVerticalGroup(
-            pacmanPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 494, Short.MAX_VALUE)
+        gamePanel1Layout.setVerticalGroup(
+            gamePanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 395, Short.MAX_VALUE)
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(BtnStart)
-                .addGap(31, 31, 31)
-                .addComponent(BtnReset)
-                .addGap(26, 26, 26)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(pacmanPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 26, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(BtnStart)
-                            .addComponent(BtnReset)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addComponent(jLabel1)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pacmanPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
+        getContentPane().add(gamePanel1, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnResetActionPerformed
         // TODO add your handling code here:
-        pacmanPanel1.reset();
+        gamePanel1.reset();
     }//GEN-LAST:event_BtnResetActionPerformed
+
+    private void BtnStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnStartActionPerformed
+        // TODO add your handling code here:
+        gamePanel1.start();
+
+
+    }//GEN-LAST:event_BtnStartActionPerformed
 
     /**
      * @param args the command line arguments
@@ -136,7 +121,7 @@ public class PacmanFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnReset;
     private javax.swing.JButton BtnStart;
+    private Pacman.gui.GamePanel gamePanel1;
     public javax.swing.JLabel jLabel1;
-    private Pacman.gui.PacmanPanel pacmanPanel1;
     // End of variables declaration//GEN-END:variables
 }

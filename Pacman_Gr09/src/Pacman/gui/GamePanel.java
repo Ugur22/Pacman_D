@@ -4,48 +4,38 @@
  */
 package Pacman.gui;
 
-import Pacman.models.Direction;
 import Pacman.models.KeyHandler;
-import Pacman.models.Pacman;
 import java.util.ArrayList;
 import Pacman.models.Poppetje;
 import Pacman.models.Speelboard;
 import java.awt.Graphics;
-import java.awt.event.KeyEvent;
 
 /**
  *
  * @author Ugur
  */
-public class PacmanPanel extends javax.swing.JPanel {
+public class GamePanel extends javax.swing.JPanel {
 
     private int level;
     private Speelboard speelboard;
     private ArrayList<Poppetje> popjes;
     private int punten = 0;
-    PacmanFrame pacmanFrame;
 
-    public Pacman pacman = new Pacman();
-
-    public PacmanPanel(PacmanFrame pacmanFrame) {
+    public GamePanel() {
         initComponents();
         level = 1;
+
         punten = 0;
 
-        speelboard = new Speelboard();
+        speelboard = new Speelboard(this);
         popjes = new ArrayList<Poppetje>();
-        this.pacmanFrame = pacmanFrame;
-
         KeyHandler kh = new KeyHandler();
-        kh.setPacman((Pacman) speelboard.pacmanStartVakje.bevat);
+
+        kh.setPacman(speelboard.pacman);
+
+        kh.setGamePanel(this);
+
         this.addKeyListener(kh);
-
-    }
-
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        speelboard.draw(g);
     }
 
     public void start() {
@@ -53,8 +43,13 @@ public class PacmanPanel extends javax.swing.JPanel {
     }
 
     public void reset() {
-        speelboard = new Speelboard();
-        // init();
+
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        speelboard.draw(g);
     }
 
     private void init() {

@@ -11,8 +11,8 @@ public abstract class SpelElement {
 
     Color color;
     Vakje vakje;
-
- 
+    Vakje startPosition = null;
+    Speelboard speelboard;
 
     public abstract void draw(Graphics g); //force children to implement = override
 
@@ -24,8 +24,20 @@ public abstract class SpelElement {
         this.color = color;
     }
 
-    void setVakje(Vakje aThis) {
-        this.vakje = aThis;
+    public void setVakje(Vakje vakje) {
+        this.vakje = vakje;
+    }
+
+    public Vakje getVakje() {
+        return this.vakje;
+    }
+
+    public Vakje getstartPositie() {
+        return this.startPosition;
+    }
+
+    public void setStartPositie(Vakje vakje) {
+        this.startPosition = vakje;
     }
 
 }

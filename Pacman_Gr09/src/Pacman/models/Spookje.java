@@ -22,12 +22,15 @@ public abstract class Spookje extends Poppetje {
             case NORTH:
                 vakje.yPos -= MOVEMENT;
                 break;
+
             case SOUTH:
                 vakje.yPos += MOVEMENT;
                 break;
+
             case WEST:
                 vakje.xPos -= MOVEMENT;
                 break;
+
             case EAST:
                 vakje.xPos += MOVEMENT;
                 break;

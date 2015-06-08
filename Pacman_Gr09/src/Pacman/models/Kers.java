@@ -5,10 +5,31 @@
  */
 package Pacman.models;
 
+import java.awt.Color;
+import java.awt.Graphics;
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+
 /**
  *
  * @author ugur
  */
-public class Kers {
+public class Kers extends Fruit {
+
+   
     
+    
+    @Override
+    public void draw(Graphics g) {
+          try {
+            g.drawImage(ImageIO.read(new File("Cherry.png")), vakje.getxPos(), vakje.getyPos(), vakje.getWidth(), vakje.getHeight(), null);
+        } catch (IOException ex) {
+            Logger.getLogger(Spookje.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
 }

@@ -17,7 +17,7 @@ import javax.imageio.ImageIO;
  *
  * @author ugur
  */
-public class SmartGhost extends Spookje {
+public class IntelligentSpook extends Spookje {
 
     @Override
     public void draw(Graphics g) {
@@ -27,6 +27,10 @@ public class SmartGhost extends Spookje {
             Logger.getLogger(Spookje.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+    }
+
+    @Override
+    public void Bewegen(Direction direction) {
     }
 
 }

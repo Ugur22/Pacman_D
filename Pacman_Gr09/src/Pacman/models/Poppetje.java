@@ -14,9 +14,13 @@ import java.awt.Graphics;
  */
 public abstract class Poppetje extends SpelElement {
 
-    int startpositie = 0;
+    protected boolean canMove(Direction dir) {
+        return this.getVakje().canMove(dir);
+    }
 
-  
+    protected Vakje moveVakje(Direction dir) {
+        return this.getVakje().getBuur(dir);
+    }
 
     //draw method
     @Override

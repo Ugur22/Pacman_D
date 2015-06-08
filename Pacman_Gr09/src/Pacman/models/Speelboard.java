@@ -5,10 +5,14 @@
  */
 package Pacman.models;
 
+import Pacman.gui.GamePanel;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
+import java.util.TimerTask;
+import java.util.Timer;
 
 /**
  *
@@ -16,12 +20,45 @@ import java.util.List;
  */
 public class Speelboard {
 
+    Timer tim = new Timer();
+    TimerTask timtask = new TimerTask() {
+
+        @Override
+        public void run() {
+            if (!FirstRun) {
+                for (Iterator it = vakken.iterator(); it.hasNext();) {
+                    Vakje vakje = (Vakje) it.next();
+                    if (vakje.hasdronkenspookje()) {
+                        if (vakje.dronkenSpookje() instanceof DronkenSpook) {
+                            ((DronkenSpook) vakje.dronkenSpookje()).RandomMove();
+                        }
+                    }
+                }
+                gamepanel.repaint();
+            }
+        }
+    };
+
     private ArrayList<Vakje> vakjes;
     public ArrayList<SpelElement> spelElements;
     public LevelHandler levelhandler = new LevelHandler();
     private int[] level;
-    public Vakje pacmanStartVakje = new Vakje(new Pacman());
-    public int aantalBolletjes;
+    public Pacman pacman;
+    public DronkenSpook dronkenspook;
+    public ArrayList<DronkenSpook> dronkenspookjes = new ArrayList<>();
+    public static int aantalBolletjes;
+    int timeplayed = 1;
+
+    Vakje vak;
+    private GamePanel gamepanel;
+
+    public Speelboard(GamePanel gamepanel) {
+        this.setLevel(levelhandler.level_one);
+        this.laden();
+        this.gamepanel = gamepanel;
+        tim.schedule(timtask, 0, 190);
+
+    }
 
     private List vakken = new ArrayList<Vakje>();
 
@@ -35,29 +72,32 @@ public class Speelboard {
     }
 
     public void laden() {
-        vakken = new ArrayList<Vakje>();
 
+        vakken = new ArrayList<Vakje>();
         for (int i = 0; i < level.length; i++) {
 
             switch (level[i]) {
                 case 0:
                     aantalBolletjes = aantalBolletjes + 1;
-                    vakken.add(new Vakje(new NormaalBolletje()));
+                    vakken.add(new Leegvakje(new NormaalBolletje()));
                     break;
                 case 1:
-                    vakken.add(new Vakje(new Muur()));
+                    vakken.add(new Muur(40, 40, 40, 40));
                     break;
                 case 2:
-                    vakken.add(new Vakje(new SmartGhost()));
+                    vakken.add(new Leegvakje(new IntelligentSpook()));
                     break;
                 case 3:
-                    vakken.add(this.pacmanStartVakje);
+                    pacman = new Pacman();
+                    vakken.add(new Leegvakje(pacman));
                     break;
                 case 4:
-                    vakken.add(new Vakje(new DrunkSpook()));
+                    dronkenspook = new DronkenSpook();
+
+                    vakken.add(new Leegvakje(dronkenspook));
                     break;
                 case 5:
-                    vakken.add(new Vakje(new SuperBolletje()));
+                    vakken.add(new Leegvakje(new SuperBolletje()));
                     break;
             }
         }
@@ -76,6 +116,27 @@ public class Speelboard {
             vakje.setyPos(y);
             vakje.setxPos(x);
             x = x + vakje.getWidth();
+
+            // Dit checkt of er kolommen naast zijn
+            if (i % levelhandler.rowMax == 0) {
+                vakje.toevoegenBuurVakje(Direction.EAST, (Vakje) vakken.get(i + 1));
+            } else if (i % levelhandler.rowMax == levelhandler.rowMax - 1) {
+                vakje.toevoegenBuurVakje(Direction.WEST, (Vakje) vakken.get(i - 1));
+            } else {
+                vakje.toevoegenBuurVakje(Direction.EAST, (Vakje) vakken.get(i + 1));
+                vakje.toevoegenBuurVakje(Direction.WEST, (Vakje) vakken.get(i - 1));
+            }
+
+            // Dit checkt of er rijen boven en onder zijn
+            if (Math.floor(i / levelhandler.rowMax) == 0) {
+                vakje.toevoegenBuurVakje(Direction.SOUTH, (Vakje) vakken.get(i + levelhandler.rowMax));
+            } else if (Math.floor(i / levelhandler.rowMax) == this.level.length / levelhandler.rowMax - 1) {
+                vakje.toevoegenBuurVakje(Direction.NORTH, (Vakje) vakken.get(i - levelhandler.rowMax));
+            } else {
+                vakje.toevoegenBuurVakje(Direction.SOUTH, (Vakje) vakken.get(i + levelhandler.rowMax));
+                vakje.toevoegenBuurVakje(Direction.NORTH, (Vakje) vakken.get(i - levelhandler.rowMax));
+            }
+
             i++;
 
             if (i % levelhandler.rowMax == 0) {
@@ -84,20 +145,68 @@ public class Speelboard {
             }
 
         }
+        pacman.setActive(true);
+        FirstRun = false;
+    }
+
+    public void plaatsKers() {
+        ArrayList<Vakje> vakjes = this.zoekLeegVakje();
+        Random random = new Random();
+
+        Vakje kersVak = vakjes.get(random.nextInt(vakjes.size()));
+
+        Kers kersje = new Kers();
+
+        kersje.setVakje(kersVak);
+        kersVak.addSpelElement(kersje);
+    }
+
+    private ArrayList<Vakje> zoekLeegVakje() {
+        ArrayList<Vakje> LeegVakjes = new ArrayList<Vakje>();
+        for (int i = 0; i < level.length; i++) {
+            if (this.vak.getSpelElement().isEmpty()) {
+                LeegVakjes.add(this.vak);
+            }
+        }
+
+        return LeegVakjes;
     }
 
     public Speelboard(ArrayList<SpelElement> spelElements, ArrayList<Vakje> vakjes) {
         this.spelElements = spelElements;
         this.vakjes = vakjes;
     }
+    boolean FirstRun = true;
 
     public void draw(Graphics g) {
+
         for (Iterator it = vakken.iterator(); it.hasNext();) {
 
             Vakje vakje = (Vakje) it.next();
+
             vakje.draw(g);
 
         }
+    }
+
+    public void volgendeLevel() {
+        timeplayed++;
+
+        switch (timeplayed) {
+            case 2:
+                this.setLevel(levelhandler.level_two);
+                break;
+            case 3:
+                this.setLevel(levelhandler.level_three);
+                break;
+
+        }
+
+        if (timeplayed > 3) {
+// hier methoden stop spel
+            System.out.println("spel ends");
+        }
+        this.laden();
     }
 
     public ArrayList<Vakje> getVakjes() {

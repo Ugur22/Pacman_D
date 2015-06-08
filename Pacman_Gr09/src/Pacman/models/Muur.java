@@ -19,16 +19,17 @@ import javax.imageio.ImageIO;
  */
 
 
-public class Muur extends SpelElement {
-    
-    public Muur(){
-        
+public class Muur extends Vakje {
+
+    public Muur(int xPos, int yPos, int height, int width) {
+        super(xPos, yPos, height, width);
     }
+ 
 
     @Override
     public void draw(Graphics g) {
         try {
-            g.drawImage(ImageIO.read(new File("wall.png")), vakje.getxPos(), vakje.getyPos(), vakje.getWidth(), vakje.getHeight(), null);
+            g.drawImage(ImageIO.read(new File("wall.png")), getxPos(), getyPos(), getWidth(), getHeight(), null);
         } catch (IOException ex) {
             Logger.getLogger(Spookje.class.getName()).log(Level.SEVERE, null, ex);
         }

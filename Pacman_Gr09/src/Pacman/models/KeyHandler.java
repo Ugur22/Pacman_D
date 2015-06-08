@@ -5,6 +5,7 @@
  */
 package Pacman.models;
 
+import Pacman.gui.GamePanel;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -15,10 +16,16 @@ import java.awt.event.KeyListener;
 public class KeyHandler implements KeyListener {
 
     Pacman Pacman;
+    GamePanel gp;
+    public static String direction = "";
 
     public void setPacman(Pacman pacman) {
         this.Pacman = pacman;
 
+    }
+
+    public void setGamePanel(GamePanel gp) {
+        this.gp = gp;
     }
 
     @Override
@@ -39,7 +46,6 @@ public class KeyHandler implements KeyListener {
             case KeyEvent.VK_DOWN:
                 Pacman.Bewegen(Direction.SOUTH);
                 break;
-
             case KeyEvent.VK_UP:
                 Pacman.Bewegen(Direction.NORTH);
                 break;
@@ -51,6 +57,7 @@ public class KeyHandler implements KeyListener {
                 Pacman.Bewegen(Direction.WEST);
                 break;
         }
+        gp.repaint();
     }
 
 }
