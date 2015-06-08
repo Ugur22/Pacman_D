@@ -5,9 +5,12 @@
 package Pacman.gui;
 
 import Pacman.models.KeyHandler;
+import Pacman.models.Pacman;
 import java.util.ArrayList;
 import Pacman.models.Poppetje;
 import Pacman.models.Speelboard;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 
 /**
@@ -19,14 +22,17 @@ public class GamePanel extends javax.swing.JPanel {
     private int level;
     private Speelboard speelboard;
     private ArrayList<Poppetje> popjes;
-    private int punten = 0;
+    //private int score;
+    private int leven = 3;
 
     public GamePanel() {
         initComponents();
         level = 1;
+        initGame();
 
-        punten = 0;
+    }
 
+    public void initGame() {
         speelboard = new Speelboard(this);
         popjes = new ArrayList<Poppetje>();
         KeyHandler kh = new KeyHandler();
@@ -34,8 +40,8 @@ public class GamePanel extends javax.swing.JPanel {
         kh.setPacman(speelboard.pacman);
 
         kh.setGamePanel(this);
-
         this.addKeyListener(kh);
+
     }
 
     public void start() {
@@ -43,13 +49,15 @@ public class GamePanel extends javax.swing.JPanel {
     }
 
     public void reset() {
-
+        init();
+        initGame();
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         speelboard.draw(g);
+
     }
 
     private void init() {
@@ -74,11 +82,11 @@ public class GamePanel extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 1145, Short.MAX_VALUE)
+            .add(0, 1240, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 582, Short.MAX_VALUE)
+            .add(0, 687, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables

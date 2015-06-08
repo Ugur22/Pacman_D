@@ -9,17 +9,14 @@ import java.awt.event.ActionListener;
  *
  * @author Ugur
  */
-public class Pacman extends Poppetje  implements ActionListener{
+public class Pacman extends Poppetje implements ActionListener {
 
     private Direction direction = Direction.EAST;
     private boolean isActive = false;
     private boolean isInvincible = false;
     boolean tijd = false;
-    private int score = 0;
-    private int leven = 3;
-    public int aantalGegetenBolletjes;
+    private int aantalGegetenBolletjes;
     private long begin;
-    protected Speelboard speelboard;
 
     public Pacman(Vakje vakje) {
         this.vakje = vakje;
@@ -72,12 +69,11 @@ public class Pacman extends Poppetje  implements ActionListener{
             if (aantalGegetenBolletjes == Speelboard.aantalBolletjes / 2) {
                 System.out.println("kersje is er");
                 //speelboard.plaatsKers();
-
             }
 
             if (aantalGegetenBolletjes >= Speelboard.aantalBolletjes) {
                 System.out.println("next level");
-                // speelboard.volgendeLevel();
+                //speelboard.volgendeLevel();
             }
         }
 
@@ -120,6 +116,14 @@ public class Pacman extends Poppetje  implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent ae) {
+    }
+
+    public void setgegetenbolletjes(int aantalgegeten) {
+        aantalGegetenBolletjes = aantalgegeten;
+    }
+
+    public int getgegetenbolletje() {
+        return aantalGegetenBolletjes;
     }
 
 }

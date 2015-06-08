@@ -148,9 +148,7 @@ public abstract class Vakje {
     }
 
     public boolean isPacman() {
-
         return (this.pacman != null);
-
     }
 
     public boolean isDronkenSpook() {

@@ -20,6 +20,11 @@ public abstract class SpelElement {
         return color;
     }
 
+    public void setSpeelBoard(Speelboard speelboard) {
+        this.speelboard = speelboard;
+
+    }
+
     public void setColor(Color color) {
         this.color = color;
     }

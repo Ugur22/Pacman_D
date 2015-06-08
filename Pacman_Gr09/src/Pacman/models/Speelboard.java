@@ -6,6 +6,8 @@
 package Pacman.models;
 
 import Pacman.gui.GamePanel;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -73,7 +75,7 @@ public class Speelboard {
 
     public void laden() {
 
-        vakken = new ArrayList<Vakje>();
+        vakken = new ArrayList<>();
         for (int i = 0; i < level.length; i++) {
 
             switch (level[i]) {
@@ -162,7 +164,7 @@ public class Speelboard {
     }
 
     private ArrayList<Vakje> zoekLeegVakje() {
-        ArrayList<Vakje> LeegVakjes = new ArrayList<Vakje>();
+        ArrayList<Vakje> LeegVakjes = new ArrayList<>();
         for (int i = 0; i < level.length; i++) {
             if (this.vak.getSpelElement().isEmpty()) {
                 LeegVakjes.add(this.vak);
@@ -179,6 +181,12 @@ public class Speelboard {
     boolean FirstRun = true;
 
     public void draw(Graphics g) {
+
+        g.setColor(Color.BLACK);
+        g.fillRect(1, 400, 200, 100);
+        g.setColor(Color.white);
+        g.setFont(new Font("TimesRoman", Font.CENTER_BASELINE, 24));
+        g.drawString("score: " + pacman.getgegetenbolletje(), 40, 470);
 
         for (Iterator it = vakken.iterator(); it.hasNext();) {
 
@@ -199,7 +207,6 @@ public class Speelboard {
             case 3:
                 this.setLevel(levelhandler.level_three);
                 break;
-
         }
 
         if (timeplayed > 3) {
@@ -215,6 +222,14 @@ public class Speelboard {
 
     public ArrayList<SpelElement> getSpelElements() {
         return spelElements;
+    }
+
+    public int getaantalbolletje() {
+        return aantalBolletjes;
+    }
+
+    public void setaantalbolletjes(int aantalbolletjes) {
+        aantalBolletjes = aantalbolletjes;
     }
 
 }
