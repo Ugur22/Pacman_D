@@ -62,6 +62,7 @@ public class GamePanel extends javax.swing.JPanel {
     public void pause() {
         try {
             speelboard.tim.cancel();
+            speelboard.tim.purge();
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -70,10 +71,8 @@ public class GamePanel extends javax.swing.JPanel {
 
     public void hervat() {
         try {
-
             init();
-            speelboard.tim.purge();
-            speelboard.timtask.scheduledExecutionTime();
+            speelboard.tim.scheduleAtFixedRate(speelboard.timtask, 0, 190);
         } catch (Exception e) {
             System.out.println(e);
         }

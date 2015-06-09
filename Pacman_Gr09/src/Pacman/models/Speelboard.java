@@ -177,7 +177,7 @@ public class Speelboard {
         this.spelElements = spelElements;
         this.vakjes = vakjes;
     }
-    boolean FirstRun = true;
+    public boolean FirstRun = true;
 
     public void draw(Graphics g) {
 
