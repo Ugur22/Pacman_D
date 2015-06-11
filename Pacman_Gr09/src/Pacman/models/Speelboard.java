@@ -10,6 +10,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
@@ -23,6 +24,7 @@ import java.util.Timer;
 public class Speelboard {
 
     public Timer tim = new Timer();
+    public List vakken = new ArrayList<Vakje>();
     public TimerTask timtask = new TimerTask() {
 
         @Override
@@ -34,6 +36,7 @@ public class Speelboard {
                         if (vakje.dronkenSpookje() instanceof DronkenSpook) {
                             ((DronkenSpook) vakje.dronkenSpookje()).RandomMove();
                         }
+
                     }
                 }
                 gamepanel.repaint();
@@ -49,7 +52,7 @@ public class Speelboard {
     public DronkenSpook dronkenspook;
     public ArrayList<DronkenSpook> dronkenspookjes = new ArrayList<>();
     public static int aantalBolletjes;
-    int timeplayed = 1;
+    public int timeplayed = 1;
 
     Vakje vak;
     private GamePanel gamepanel;
@@ -61,10 +64,12 @@ public class Speelboard {
 
     }
 
-    private List vakken = new ArrayList<Vakje>();
-
     public void setLevel(int[] level) {
         this.level = level;
+    }
+
+    public int[] getLevel() {
+        return level;
     }
 
     public Speelboard() {
@@ -165,7 +170,7 @@ public class Speelboard {
     private ArrayList<Vakje> zoekLeegVakje() {
         ArrayList<Vakje> LeegVakjes = new ArrayList<>();
         for (int i = 0; i < level.length; i++) {
-            if (this.vak.getSpelElement().isEmpty()) {
+            if (this.vakjes.isEmpty()) {
                 LeegVakjes.add(this.vak);
             }
         }
@@ -198,6 +203,7 @@ public class Speelboard {
 
     public void volgendeLevel() {
         timeplayed++;
+        System.out.println(timeplayed);
 
         switch (timeplayed) {
             case 2:
@@ -207,12 +213,11 @@ public class Speelboard {
                 this.setLevel(levelhandler.level_three);
                 break;
         }
-
+        this.laden();
         if (timeplayed > 3) {
 // hier methoden stop spel
             System.out.println("spel ends");
         }
-        this.laden();
     }
 
     public ArrayList<Vakje> getVakjes() {

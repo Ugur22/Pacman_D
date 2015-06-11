@@ -72,7 +72,7 @@ public class GamePanel extends javax.swing.JPanel {
     public void hervat() {
         try {
             init();
-            speelboard.tim.scheduleAtFixedRate(speelboard.timtask, 0, 190);
+            speelboard.timtask.run();
         } catch (Exception e) {
             System.out.println(e);
         }

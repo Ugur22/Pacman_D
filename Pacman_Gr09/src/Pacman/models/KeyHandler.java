@@ -17,7 +17,6 @@ public class KeyHandler implements KeyListener {
 
     Pacman Pacman;
     GamePanel gp;
-    public static String direction = "";
 
     public void setPacman(Pacman pacman) {
         this.Pacman = pacman;

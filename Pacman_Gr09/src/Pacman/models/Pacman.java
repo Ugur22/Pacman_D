@@ -2,14 +2,12 @@ package Pacman.models;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /**
  *
  * @author Ugur
  */
-public class Pacman extends Poppetje implements ActionListener {
+public class Pacman extends Poppetje {
 
     private Direction direction = Direction.EAST;
     private boolean isActive = false;
@@ -17,6 +15,7 @@ public class Pacman extends Poppetje implements ActionListener {
     boolean tijd = false;
     private int aantalGegetenBolletjes;
     private long begin;
+    Pacman Pacman;
 
     public Pacman(Vakje vakje) {
         this.vakje = vakje;
@@ -34,6 +33,7 @@ public class Pacman extends Poppetje implements ActionListener {
         }
 
         if (isInvincible) {
+
             g.setColor(Color.BLUE);
         } else {
             g.setColor(Color.ORANGE);
@@ -59,45 +59,49 @@ public class Pacman extends Poppetje implements ActionListener {
 
     }
 
-    private void setpacmanPosition(Vakje vakje) {
-        this.getVakje().removeSpelElement(this);
-        vakje.addSpelElement(this);
-        if (vakje.hasNormaalBolletje()) {
+    private void setpacmanNextPosition(Vakje newvakje) {
 
-            vakje.removeSpelElement(vakje.normaalBollentje());
+        this.getVakje().removeSpelElement(this);
+
+        newvakje.addSpelElement(this);
+        if (newvakje.hasNormaalBolletje()) {
+
+            newvakje.removeSpelElement(newvakje.normaalBollentje());
             this.aantalGegetenBolletjes = this.aantalGegetenBolletjes + 1;
             if (aantalGegetenBolletjes == Speelboard.aantalBolletjes / 2) {
                 System.out.println("kersje is er");
-                //speelboard.plaatsKers();
+                // new Speelboard().plaatsKers();
+                new Speelboard().volgendeLevel();
+
             }
 
             if (aantalGegetenBolletjes >= Speelboard.aantalBolletjes) {
                 System.out.println("next level");
-                //speelboard.volgendeLevel();
+
             }
         }
 
-        if (vakje.hasSuperBollentje()) {
-            vakje.removeSpelElement(vakje.superBollentje());
+        if (newvakje.hasSuperBollentje()) {
+            newvakje.removeSpelElement(newvakje.superBollentje());
             begin = System.currentTimeMillis() / 1000;
             isInvincible = true;
 
         }
-        if (vakje.hasdronkenspookje()) {
+        if (newvakje.hasdronkenspookje()) {
             if (!isInvincible) {
-                vakje.removeSpelElement(this);
+                newvakje.removeSpelElement(this);
             } else {
-                vakje.removeSpelElement(vakje.dronkenSpookje());
+                newvakje.removeSpelElement(newvakje.dronkenSpookje());
             }
 
         }
 
-        if (vakje.hasKersje()) {
-            vakje.removeSpelElement(vakje.Kersje());
+        if (newvakje.hasKersje()) {
+            newvakje.removeSpelElement(newvakje.Kersje());
 
         }
 
-        this.setVakje(vakje);
+        this.setVakje(newvakje);
     }
 
     @Override
@@ -105,17 +109,13 @@ public class Pacman extends Poppetje implements ActionListener {
         if (this.isActive) {
             if (this.canMove(direction)) {
                 this.direction = direction;
-                this.setpacmanPosition(this.moveVakje(direction));
+                this.setpacmanNextPosition(this.moveVakje(direction));
             }
         }
     }
 
     public void setActive(boolean active) {
         this.isActive = active;
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent ae) {
     }
 
     public void setgegetenbolletjes(int aantalgegeten) {
